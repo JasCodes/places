@@ -65,7 +65,7 @@ packages:
     source: hosted
     version: "1.4.1"
   build_runner:
-    dependency: "direct main"
+    dependency: "direct dev"
     description:
       name: build_runner
       url: "https://pub.dartlang.org"
@@ -224,7 +224,7 @@ packages:
     source: sdk
     version: "0.0.0"
   flutter_gen:
-    dependency: "direct main"
+    dependency: "direct dev"
     description:
       name: flutter_gen
       url: "https://pub.dartlang.org"
