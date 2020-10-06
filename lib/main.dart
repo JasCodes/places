@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:places/pages/counter.dart';
+import 'package:places/pages/travel_list.dart';
 
 void main() {
   runApp(App());
@@ -14,7 +14,7 @@ class App extends StatelessWidget {
         primarySwatch: Colors.indigo,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: Counter(),
+      home: TravelList(),
     );
   }
 }

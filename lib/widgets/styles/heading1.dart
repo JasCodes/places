@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-// import 'package:ext/ext.dart';
-import 'package:get/get.dart';
+import 'package:ext/ext.dart';
 
 class Heading1 extends StatelessWidget {
   final String text;

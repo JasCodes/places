@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/state_manager.dart';
+import 'package:ext/ext.dart';
 import 'package:places/widgets/styles/heading1.dart';
 
 class Counter extends StatelessWidget {
