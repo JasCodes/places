@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:places/routes/travel_list_route.dart';
-import 'package:places/widgets/sections/list_bottom_section.dart';
-import 'package:places/widgets/sections/list_top_section/list_top_section.dart';
+import 'package:places/widgets/sections/place_list/app_bar_section.dart';
+
+import 'package:places/widgets/sections/place_list/list_bottom_section.dart';
+import 'package:places/widgets/sections/place_list/list_search_section.dart';
 
 class TravelListPage extends StatelessWidget {
   static const routeName = '/list';
@@ -15,8 +17,26 @@ class TravelListPage extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            ListTopSection(),
-            ListBottomSection(),
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 25,
+                vertical: 25,
+              ),
+              child: Column(
+                children: [
+                  AppBarSection(),
+                  SizedBox(height: 20),
+                  ListSearchSection(),
+                ],
+              ),
+            ),
+            Container(
+              height: 500,
+              child: PlaceCardsSection(
+                itemExtent: 220,
+                itemMargin: 20,
+              ),
+            ),
           ],
         ),
       ),

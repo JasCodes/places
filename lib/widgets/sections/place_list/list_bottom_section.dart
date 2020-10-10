@@ -1,33 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:places/data/place_image_data.dart';
 import 'package:places/widgets/components/list_card.dart';
 
-class ListBottomSection extends StatelessWidget {
-  const ListBottomSection({Key key}) : super(key: key);
-  static const itemCount = 10;
-  static const itemExtent = 200.0;
-  static const double itemMargin = 20.0;
+class PlaceCardsSection extends StatelessWidget {
+  final double itemExtent;
+  final double itemMargin;
+  const PlaceCardsSection({
+    Key key,
+    @required this.itemExtent,
+    @required this.itemMargin,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      // padding: EdgeInsets.all(20),
-      height: 300,
-      // width: context.width,
-      // color: Colors.blue,
-      child: ListView.builder(
-        itemCount: itemCount,
+    final list = PlaceImageData.list();
+    final physics = CustomScrollPhysics(
+      itemDimension: itemExtent + itemMargin,
+      margin: itemMargin,
+    );
+    return Expanded(
+      child: ListView(
         scrollDirection: Axis.horizontal,
-        physics: CustomScrollPhysics(
-            itemDimension: itemExtent + itemMargin, margin: itemMargin),
-        itemBuilder: (context, index) {
+        physics: physics,
+        children: list.map((img) {
           return ListCard(
-            index: index,
-            count: itemCount,
+            index: list.indexOf(img),
+            img: img,
+            count: list.length,
             laneMargin: itemMargin,
-            width: itemExtent,
-            height: 400,
+            itemExtent: itemExtent,
           );
-        },
+        }).toList(),
         // transformer: PageTransformerBuilder(builder: (widget, transInfo) {}),
       ),
     );

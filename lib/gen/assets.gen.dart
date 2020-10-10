@@ -5,8 +5,23 @@
 
 import 'package:flutter/widgets.dart';
 
+class $AssetsImagesGen {
+  const $AssetsImagesGen();
+
+  AssetGenImage get amritsar =>
+      const AssetGenImage('assets/images/amritsar.png');
+  AssetGenImage get cameron => const AssetGenImage('assets/images/cameron.jpg');
+  AssetGenImage get iceland => const AssetGenImage('assets/images/iceland.jpg');
+  AssetGenImage get mallorca =>
+      const AssetGenImage('assets/images/mallorca.jpg');
+  AssetGenImage get profile => const AssetGenImage('assets/images/profile.jpg');
+  AssetGenImage get sweden => const AssetGenImage('assets/images/sweden.jpg');
+}
+
 class Assets {
   Assets._();
+
+  static const $AssetsImagesGen images = $AssetsImagesGen();
 }
 
 class AssetGenImage extends AssetImage {

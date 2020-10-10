@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 
 class ListCard extends StatelessWidget {
+  final Image img;
+  final double itemExtent;
   final int index;
   final int count;
   final double laneMargin;
   final double edgeMargin;
-  final double width;
-  final double height;
   final double borderRadius;
   const ListCard({
     Key key,
+    @required this.img,
+    @required this.itemExtent,
     @required this.index,
     @required this.count,
-    @required this.width,
-    @required this.height,
     @required this.laneMargin,
     this.edgeMargin,
     this.borderRadius,
@@ -37,12 +37,12 @@ class ListCard extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: _laneMargin),
         child: Container(
+          width: itemExtent,
+          clipBehavior: Clip.antiAlias,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(_borderRadius),
-            color: index % 2 == 0 ? Colors.red : Colors.amber,
           ),
-          width: 200,
-          height: 400,
+          child: img,
         ),
       ),
     );
