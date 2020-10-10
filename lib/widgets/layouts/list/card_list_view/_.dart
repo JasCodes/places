@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:places/data/place_image_data.dart';
-import 'package:places/widgets/components/list_card.dart';
+import 'package:places/widgets/layouts/list/card_list_view/card_places.dart';
 
-class PlaceCardsSection extends StatelessWidget {
+class CardListView extends StatelessWidget {
   final double itemExtent;
   final double itemMargin;
-  const PlaceCardsSection({
+  const CardListView({
     Key key,
     @required this.itemExtent,
     @required this.itemMargin,
@@ -19,17 +19,22 @@ class PlaceCardsSection extends StatelessWidget {
       itemDimension: itemExtent + itemMargin,
       margin: itemMargin,
     );
+
+    final buildPaddedView = ({Widget child}) => child;
+
     return Expanded(
       child: ListView(
         scrollDirection: Axis.horizontal,
         physics: physics,
         children: list.map((img) {
-          return ListCard(
-            index: list.indexOf(img),
-            img: img,
-            count: list.length,
-            laneMargin: itemMargin,
-            itemExtent: itemExtent,
+          return buildPaddedView(
+            child: CardPlaces(
+              index: list.indexOf(img),
+              img: img,
+              count: list.length,
+              laneMargin: itemMargin,
+              itemExtent: itemExtent,
+            ),
           );
         }).toList(),
         // transformer: PageTransformerBuilder(builder: (widget, transInfo) {}),

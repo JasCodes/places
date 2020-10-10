@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:places/pages/travel_list_page.dart';
+import 'package:places/pages/detail_page.dart';
 
-final Route travelListRoute = PageRouteBuilder(
+final Route detailRoute = PageRouteBuilder(
   pageBuilder: (context, animation, animationSecondary) {
-    return TravelListPage();
+    return DetailPage();
   },
   transitionsBuilder: (context, animation, secondaryAnimation, child) {
     return child;

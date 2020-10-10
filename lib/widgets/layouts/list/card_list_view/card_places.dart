@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class ListCard extends StatelessWidget {
+class CardPlaces extends StatelessWidget {
   final Image img;
   final double itemExtent;
   final int index;
@@ -8,7 +8,7 @@ class ListCard extends StatelessWidget {
   final double laneMargin;
   final double edgeMargin;
   final double borderRadius;
-  const ListCard({
+  const CardPlaces({
     Key key,
     @required this.img,
     @required this.itemExtent,

@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:places/routes/travel_list_route.dart';
-import 'package:places/widgets/sections/place_list/app_bar_section.dart';
+import 'package:places/routes/list_route.dart';
+import 'package:places/widgets/layouts/list/app_bar_x/_.dart';
+import 'package:places/widgets/layouts/list/card_list_view/_.dart';
+import 'package:places/widgets/layouts/list/list_search_section.dart';
 
-import 'package:places/widgets/sections/place_list/list_bottom_section.dart';
-import 'package:places/widgets/sections/place_list/list_search_section.dart';
-
-class TravelListPage extends StatelessWidget {
+class ListPage extends StatelessWidget {
   static const routeName = '/list';
-  static final route = travelListRoute;
+  static final route = listRoute;
 
-  const TravelListPage({Key key}) : super(key: key);
+  const ListPage({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +23,7 @@ class TravelListPage extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  AppBarSection(),
+                  AppBarX(),
                   SizedBox(height: 20),
                   ListSearchSection(),
                 ],
@@ -32,7 +31,7 @@ class TravelListPage extends StatelessWidget {
             ),
             Container(
               height: 500,
-              child: PlaceCardsSection(
+              child: CardListView(
                 itemExtent: 220,
                 itemMargin: 20,
               ),
