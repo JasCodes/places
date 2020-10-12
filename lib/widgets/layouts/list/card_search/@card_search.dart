@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:ext/ext.dart';
 
-class ListSearchSection extends StatelessWidget {
-  const ListSearchSection({Key key}) : super(key: key);
+class CardSearch extends StatelessWidget {
+  const CardSearch({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

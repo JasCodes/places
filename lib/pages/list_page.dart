@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:places/routes/list_route.dart';
-import 'package:places/widgets/layouts/list/app_bar_x/_.dart';
-import 'package:places/widgets/layouts/list/card_list_view/_.dart';
-import 'package:places/widgets/layouts/list/list_search_section.dart';
+import 'package:places/widgets/customs/shadow_tree/@shadow_tree.dart';
+import 'package:places/widgets/layouts/list/app_bar_x/@app_bar_x.dart';
+import 'package:places/widgets/layouts/list/card_list/@card_list.dart';
+import 'package:places/widgets/layouts/list/card_search/@card_search.dart';
 
 class ListPage extends StatelessWidget {
   static const routeName = '/list';
@@ -14,29 +15,32 @@ class ListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 25,
-                vertical: 25,
+        child: ShadowTree(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 25,
+                  vertical: 25,
+                ),
+                child: Column(
+                  children: [
+                    AppBarX(),
+                    SizedBox(height: 20),
+                    CardSearch(),
+                  ],
+                ),
               ),
-              child: Column(
-                children: [
-                  AppBarX(),
-                  SizedBox(height: 20),
-                  ListSearchSection(),
-                ],
+              Container(
+                height: 500,
+                child: CardList(
+                    // children: PlacesImageData.list(),
+                    // itemExtent: 220,
+                    // laneMargin: 20,
+                    ),
               ),
-            ),
-            Container(
-              height: 500,
-              child: CardListView(
-                itemExtent: 220,
-                itemMargin: 20,
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

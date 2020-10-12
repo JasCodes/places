@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:places/routes/_.dart';
+import 'package:places/global_controllers.dart';
+import 'package:places/routes/@routes.dart';
 
 void main() {
   runApp(App());
@@ -21,22 +22,24 @@ class MyBehavior extends ScrollBehavior {
 class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Places',
-      builder: (context, child) {
-        return ScrollConfiguration(
-          child: child,
-          behavior: MyBehavior(),
-        );
-      },
-      onGenerateRoute: onGenerateRoute,
-      theme: ThemeData(
-        primarySwatch: Colors.indigo,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+    return GlobalControllers(
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Places',
+        builder: (context, child) {
+          return ScrollConfiguration(
+            child: child,
+            behavior: MyBehavior(),
+          );
+        },
+        onGenerateRoute: onGenerateRoute,
+        theme: ThemeData(
+          primarySwatch: Colors.indigo,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
+        // home: TravelList(),
+        // home: PageA(),
       ),
-      // home: TravelList(),
-      // home: PageA(),
     );
   }
 }
