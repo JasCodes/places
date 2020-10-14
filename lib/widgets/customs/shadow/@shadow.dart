@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 typedef Widget ShadowBuilder(BuildContext context);
 typedef Widget ShadowRenderBuilder(
   BuildContext context,
-  BuildContext shadowContext,
+  BuildContext shadowChildContext,
   Widget child,
 );
 
@@ -37,11 +37,12 @@ class Shadow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      print('rebuilt shadow tree');
+      print('rebuilt shadow tree:${shadowController.children.length}');
       final _stackList = [child];
-      final _children = shadowController.children.value;
-      _children.sort((a, b) => a.zIndex - b.zIndex);
-      _children.forEach((child) {
+      // final _children = shadowController.children.value;
+      // _children.sort((a, b) => a.zIndex - b.zIndex);
+      ;
+      shadowController.children.forEach((child) {
         final renderBuild = child.renderBuilder(
           context,
           child.globalKey.currentContext,

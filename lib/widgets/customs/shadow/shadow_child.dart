@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:places/widgets/customs/shadow/@shadow.dart';
 
-class ShadowChild extends StatelessWidget {
-  final ShadowController shadowController = Get.find();
-
+class ShadowChild extends StatefulWidget {
   final ShadowBuilder builder;
   final ShadowRenderBuilder renderBuilder;
   final bool active;
@@ -19,28 +17,43 @@ class ShadowChild extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  _ShadowChildState createState() => _ShadowChildState();
+}
+
+class _ShadowChildState extends State<ShadowChild> {
+  final ShadowController shadowController = Get.find();
+
+  @override
+  void dispose() {
+    shadowController.children
+        .removeWhere((child) => child.globalKey == widget.key);
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final _shadowChildren = shadowController.children;
 
-    if (active) {
+    if (widget.active) {
       _shadowChildren.add(
         ShadowModel(
-          globalKey: key,
-          builder: builder,
-          renderBuilder: renderBuilder,
-          zIndex: zIndex,
+          globalKey: widget.key,
+          builder: widget.builder,
+          renderBuilder: widget.renderBuilder,
+          zIndex: widget.zIndex,
         ),
       );
+
       return IgnorePointer(
         ignoring: true,
         child: Opacity(
           opacity: 0,
-          child: builder(context),
+          child: widget.builder(context),
         ),
       );
     } else {
-      _shadowChildren.removeWhere((child) => child.globalKey == key);
-      return builder(context);
+      _shadowChildren.removeWhere((child) => child.globalKey == widget.key);
+      return widget.builder(context);
     }
   }
 }
