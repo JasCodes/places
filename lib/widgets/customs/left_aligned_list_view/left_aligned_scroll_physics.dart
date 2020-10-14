@@ -1,12 +1,18 @@
+import 'package:flutter/physics.dart';
 import 'package:flutter/widgets.dart';
 
 class LeftAlignedScrollPhysics extends ScrollPhysics {
   final double itemExtent;
   final double margin;
+  final double pageOffset;
   final double itemDimension;
 
-  LeftAlignedScrollPhysics({this.itemExtent, this.margin, ScrollPhysics parent})
-      : itemDimension = margin + itemExtent,
+  LeftAlignedScrollPhysics({
+    @required this.itemExtent,
+    this.margin = 10,
+    this.pageOffset = 10,
+    ScrollPhysics parent,
+  })  : itemDimension = margin + itemExtent,
         super(parent: parent);
 
   @override
@@ -14,6 +20,7 @@ class LeftAlignedScrollPhysics extends ScrollPhysics {
     return LeftAlignedScrollPhysics(
       margin: margin,
       itemExtent: itemExtent,
+      pageOffset: pageOffset,
       parent: buildParent(ancestor),
     );
   }
@@ -23,7 +30,7 @@ class LeftAlignedScrollPhysics extends ScrollPhysics {
   }
 
   double _getPixels(double page) {
-    return (page * itemDimension);
+    return (page * itemDimension - pageOffset);
   }
 
   double _getTargetPixels(

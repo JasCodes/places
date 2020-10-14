@@ -42,7 +42,10 @@ class LeftAlignedListView extends StatelessWidget {
           padding: _mpad,
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: _laneMargin / 2),
-            child: child,
+            child: Container(
+              width: itemExtent,
+              child: child,
+            ),
           ),
         );
       }).toList(),

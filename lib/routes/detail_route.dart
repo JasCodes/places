@@ -12,9 +12,10 @@ class DetailRouteProps {
 }
 
 detailRoute({Object args}) => PageRouteBuilder(
-      transitionDuration: 5.seconds,
-      reverseTransitionDuration: 5.seconds,
+      // transitionDuration: 1.seconds,
+      // reverseTransitionDuration: 1.seconds,
       pageBuilder: (context, animation, animationSecondary) {
+        Get.delete<DetailRouteProps>();
         Get.put(
           DetailRouteProps(animation, animationSecondary),
         );

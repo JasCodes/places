@@ -3,11 +3,11 @@ import 'package:get/get.dart';
 import 'package:places/pages/list_page.dart';
 
 class ListRouteProps {
-  final Animation<double> animation;
-  final Animation<double> animationSecondary;
+  final Animation<double> animNavIn;
+  final Animation<double> animNavOut;
   ListRouteProps(
-    this.animation,
-    this.animationSecondary,
+    this.animNavIn,
+    this.animNavOut,
   );
 }
 
