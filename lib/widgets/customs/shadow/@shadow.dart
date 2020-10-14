@@ -8,23 +8,28 @@ typedef Widget ShadowRenderBuilder(
   Widget child,
 );
 
-// class ShadowObject {
-//   ShadowObject(this.builder, this.shadowContext);
-//   final ShadowBuilder builder;
-//   final BuildContext shadowContext;
-// }
-
-class ShadowController extends GetxController {
-  final targetBuilders = Map<GlobalKey, ShadowBuilder>().obs;
-  final targetRenderBuilders = Map<GlobalKey, ShadowRenderBuilder>().obs;
-  final frontBuilders = Map<GlobalKey, ShadowBuilder>().obs;
+class ShadowModel {
+  ShadowModel({
+    @required this.globalKey,
+    @required this.zIndex,
+    @required this.builder,
+    @required this.renderBuilder,
+  });
+  final GlobalKey globalKey;
+  final int zIndex;
+  final ShadowBuilder builder;
+  final ShadowRenderBuilder renderBuilder;
 }
 
-class ShadowTree extends StatelessWidget {
+class ShadowController extends GetxController {
+  final children = RxList<ShadowModel>();
+}
+
+class Shadow extends StatelessWidget {
   final shadowController = Get.put(ShadowController());
 
   final Widget child;
-  ShadowTree({
+  Shadow({
     Key key,
     this.child,
   }) : super(key: key);
@@ -32,15 +37,17 @@ class ShadowTree extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      print('built shadow tree');
-      final List<Widget> _stackList = [child];
-      shadowController.targetBuilders.forEach((key, builder) {
-        final r = shadowController.targetRenderBuilders[key](
+      print('rebuilt shadow tree');
+      final _stackList = [child];
+      final _children = shadowController.children.value;
+      _children.sort((a, b) => a.zIndex - b.zIndex);
+      _children.forEach((child) {
+        final renderBuild = child.renderBuilder(
           context,
-          key.currentContext,
-          builder(context),
+          child.globalKey.currentContext,
+          child.builder(context),
         );
-        _stackList.add(r);
+        _stackList.add(renderBuild);
       });
 
       return Stack(

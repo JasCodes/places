@@ -13,10 +13,10 @@ class ListRouteProps {
 
 listRoute({Object args}) => PageRouteBuilder(
       pageBuilder: (context, animation, animationSecondary) {
+        Get.delete<ListRouteProps>();
         Get.put(
           ListRouteProps(animation, animationSecondary),
         );
-
         return ListPage();
       },
       // transitionsBuilder: (context, animation, secondaryAnimation, child) {

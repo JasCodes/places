@@ -2,16 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:places/models/places_model.dart';
 import 'package:places/routes/list_route.dart';
-import 'package:places/widgets/customs/shadow_tree/shadow_target_builder.dart';
 import 'package:ext/ext.dart';
+import 'package:places/widgets/customs/shadow/shadow_child.dart';
+import 'package:places/widgets/layouts/list/card_list/cart_list_detail_transition_builder.dart';
+
+import 'package:places/widgets/transitions/@transitions.dart';
 
 class CardView extends StatelessWidget {
   final PlacesModel place;
-  final bool active;
+  final Rx<PlacesModel> activePlace;
   final double borderRadius;
   final globalKey = GlobalKey().obs;
   final ListRouteProps props = Get.find();
-
   final isShadow = false.obs;
 
   isNavigatingOut() =>
@@ -21,10 +23,10 @@ class CardView extends StatelessWidget {
   CardView({
     Key key,
     @required this.place,
-    @required this.active,
+    @required this.activePlace,
     this.borderRadius,
   }) : super(key: key) {
-    if (active) {
+    if (activePlace.value == place) {
       isShadow.value = isNavigatingOut();
       props.animNavOut.addStatusListener((status) {
         isShadow.value = isNavigatingOut();
@@ -35,59 +37,20 @@ class CardView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double _borderRadius = borderRadius ?? 20;
-
     return Obx(
-      () => ShadowTargetBuilder(
+      () => ShadowChild(
+        zIndex: 0,
         key: globalKey.value,
         active: isShadow.value,
         builder: (context) {
-          final animBorderRadius = BorderRadiusTween(
-            begin: BorderRadius.circular(_borderRadius),
-            end: BorderRadius.circular(active ? 0 : _borderRadius),
-          ).animate(props.animNavOut);
-
-          return AnimatedBuilder(
-            animation: props.animNavOut,
-            child: place.images[0].image(
-              fit: BoxFit.cover,
-            ),
-            builder: (context, child) {
-              return ClipRRect(
-                borderRadius: animBorderRadius.value,
-                child: child,
+          return place.images[0]
+              .image(fit: BoxFit.cover)
+              .circularBorderRadiusTransition(
+                props.animNavOut,
+                enabled: activePlace.value == place,
               );
-            },
-          );
         },
-        renderBuilder: (context, shadowContext, child) {
-          final RenderBox renderBox = shadowContext.findRenderObject();
-          final offset = renderBox.localToGlobal(Offset.zero);
-
-          final offsetAnimation = Tween<Offset>(
-            begin: offset,
-            end: Offset.zero,
-          ).animate(props.animNavOut);
-
-          final animSize = SizeTween(
-            begin: renderBox.size,
-            end: Size(context.width, context.height * 0.6),
-          ).animate(props.animNavOut);
-
-          return AnimatedBuilder(
-            animation: props.animNavOut,
-            child: child,
-            builder: (context, child) {
-              return Transform.translate(
-                offset: offsetAnimation.value,
-                child: Container(
-                  width: animSize.value.width,
-                  height: animSize.value.height,
-                  child: child,
-                ),
-              );
-            },
-          );
-        },
+        renderBuilder: cardListDetailTransitionBuilder,
       ),
     );
   }

@@ -1,35 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:places/widgets/customs/shadow_tree/@shadow_tree.dart';
+import 'package:places/widgets/customs/shadow/@shadow.dart';
 
-class ShadowTargetBuilder extends StatelessWidget {
+class ShadowChild extends StatelessWidget {
   final ShadowController shadowController = Get.find();
 
   final ShadowBuilder builder;
   final ShadowRenderBuilder renderBuilder;
   final bool active;
-  final isFront;
+  final int zIndex;
 
-  ShadowTargetBuilder({
+  ShadowChild({
     @required GlobalKey key,
     @required this.builder,
     @required this.renderBuilder,
     @required this.active,
-    this.isFront = false,
+    this.zIndex,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final _builder = isFront
-        ? shadowController.frontBuilders
-        : shadowController.targetBuilders;
+    final _shadowChildren = shadowController.children;
 
-    final _renderBuilder = shadowController.targetRenderBuilders;
-
-    // final _build = Container(key: ,) builder(context);
     if (active) {
-      _builder.add(key, builder);
-      _renderBuilder.add(key, renderBuilder);
+      _shadowChildren.add(
+        ShadowModel(
+          globalKey: key,
+          builder: builder,
+          renderBuilder: renderBuilder,
+          zIndex: zIndex,
+        ),
+      );
       return IgnorePointer(
         ignoring: true,
         child: Opacity(
@@ -38,8 +39,7 @@ class ShadowTargetBuilder extends StatelessWidget {
         ),
       );
     } else {
-      if (_builder.containsKey(key)) _builder.remove(key);
-      if (_renderBuilder.containsKey(key)) _renderBuilder.remove(key);
+      _shadowChildren.removeWhere((child) => child.globalKey == key);
       return builder(context);
     }
   }

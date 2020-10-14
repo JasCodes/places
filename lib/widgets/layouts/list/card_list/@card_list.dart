@@ -15,7 +15,7 @@ class CardList extends StatelessWidget {
   Widget build(BuildContext context) {
     final PlacesController placesController = Get.find();
     final places = placesController.places;
-    Rx<PlacesModel> activePlace = places.last.obs;
+    final Rx<PlacesModel> activePlace = places.first.obs;
 
     return LeftAlignedListView(
       itemExtent: 250,
@@ -32,7 +32,7 @@ class CardList extends StatelessWidget {
           child: Obx(
             () => CardView(
               place: place,
-              active: activePlace.value == place,
+              activePlace: activePlace,
             ),
           ),
         );
